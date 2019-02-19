@@ -1,0 +1,32 @@
+package controller;
+
+import org.springframework.stereotype.Controller;
+
+
+@Controller
+public class TransactionsController {
+	
+	@RequestMapping("/account")
+	public String greeting() {
+		return "Hello WOrld";
+	}
+
+	public void createAccount() {
+
+	}
+	
+	
+	public void showBalance() {
+		
+	}
+	
+	
+	public void transferFunds() {
+		
+	}
+	
+	
+	public void showTransactions() {
+		
+	}
+}

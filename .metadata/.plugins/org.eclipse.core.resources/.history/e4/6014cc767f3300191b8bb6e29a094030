@@ -1,0 +1,82 @@
+package Database;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
+
+import connector.DatabaseConnector;
+import model.Account;
+
+
+public class AccountDoa {
+	
+	private Connection connection = DatabaseConnector.getConnection();
+	
+	public void createAccount(int accountID, String firstname, String lastname, int funds) {
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			String account = String.format("INSERT INTO ACCOUNT VALUES ('%d','%s','%s','%d')", accountID,firstname,lastname,funds);
+			stmt.executeUpdate(account);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
+	
+	public boolean transferFunds(int accountFrom, int accountTo, int transferAmount) {
+		Statement stmt;
+		ResultSet rs;
+		
+		return false;
+	}
+	
+	public void showBalance(int accountID) {
+		
+	}
+	
+	
+	
+	private boolean hasAdequateFunds(int accountFrom, int transferAmount) {
+		Statement stmt;
+		String checkFunds = "SELECT funds FROM ACCOUNT WHERE accountID = " + accountFrom;
+		ResultSet rs;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(checkFunds);
+			rs.next();
+			if (rs.getInt(0) < transferAmount) {
+				return false;
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
+
+		return true;
+	}
+	
+	private int getFunds(int account) {
+		Statement stmt;
+		String checkFunds = "SELECT funds FROM ACCOUNT WHERE accountID = " + account;
+		ResultSet rs;
+		int funds = -1;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(checkFunds);
+			rs.next();
+			funds = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} 
+
+		return funds;
+	}
+	
+	
+}

@@ -1,0 +1,22 @@
+Request: post: http://localhost:8080/transfer
+Body:
+{
+	"accountFrom" : 654321,
+	"accountTo" : 123456,
+	"amount" : 20
+}
+
+
+Request: get: http://localhost:8080/{accountID}/balance
+
+Request: post: http://localhost:8080/account
+Body:
+{
+	"accountID" : 654321,
+	"firstname" : "jane",
+	"lastname" : "Doe",
+	"funds" : 2
+}
+
+
+Request: get: http://localhost:8080/{accountID}/transactions

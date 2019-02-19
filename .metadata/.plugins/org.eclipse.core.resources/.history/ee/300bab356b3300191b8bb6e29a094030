@@ -1,0 +1,19 @@
+package Database;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
+
+import model.Account;
+
+@Transactional 
+public class AccountDoa {
+	
+	@Autowired
+	HibernateTemplate template;
+
+	public void saveAccount(Account account) {
+		template.save(account);
+	}
+}

@@ -1,0 +1,2 @@
+After pulling the repo the application can be be run either using the snapshot provide at Little_Bank\bank\target
+or by importing the project to an ide (i.e Spring Tool Suite) and running as Spring Boot App.

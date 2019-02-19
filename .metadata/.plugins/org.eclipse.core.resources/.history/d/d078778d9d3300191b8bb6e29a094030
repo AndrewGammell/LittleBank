@@ -1,0 +1,24 @@
+package connector;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DatabaseConnector {
+	private static Connection connection = null;
+
+	
+	public static Connection getConnection() {
+		
+		try {
+			if (connection == null) {
+				Class.forName("org.h2.Driver").newInstance();
+				connection = DriverManager.getConnection("jdbc:h2:.bank", "root", "password");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
+
+}

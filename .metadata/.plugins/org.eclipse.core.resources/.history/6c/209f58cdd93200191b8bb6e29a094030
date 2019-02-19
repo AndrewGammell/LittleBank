@@ -1,0 +1,33 @@
+package controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+public class TransactionsController {
+	
+	@RequestMapping("account")
+	public String greeting() {
+		return "Hello World";
+	}
+
+	public void createAccount() {
+
+	}
+	
+	
+	public void showBalance() {
+		
+	}
+	
+	
+	public void transferFunds() {
+		
+	}
+	
+	
+	public void showTransactions() {
+		
+	}
+}

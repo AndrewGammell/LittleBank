@@ -1,0 +1,53 @@
+package model;
+
+public class Account {
+
+	private int accountID;
+	private String firstname;
+	private String lastname;
+	private int funds;
+	
+	private Account() {
+		
+	}
+	
+	public Account(int accountID, String firstname, String lastname, int funds) {
+		this.accountID = accountID;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.funds = funds;
+	}
+
+	public int getAccountID() {
+		return accountID;
+	}
+
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public int getFunds() {
+		return funds;
+	}
+
+	public void setFunds(int funds) {
+		this.funds = funds;
+	}
+	
+}

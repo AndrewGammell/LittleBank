@@ -1,0 +1,28 @@
+package Database;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+import connector.DatabaseConnector;
+
+public class Database {
+
+	private Connection connection = DatabaseConnector.getConnection();
+	
+	private void setupTable() {
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			String table = "CREATE TABLE IF NOT EXISTS ACCOUNT ("
+					+ "accountID INTEGER NOT_NULL, "
+					+ "first_name VARCHAR(50) NOT_NULL,"
+					+ " last_name VARCHAR(50) NOT_NULL,"
+					+ " funds INTEGER NOT_NULL"
+					+ ")";
+			stmt.executeUpdate(table);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+}

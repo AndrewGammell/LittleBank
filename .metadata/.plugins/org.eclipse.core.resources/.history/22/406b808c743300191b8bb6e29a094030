@@ -1,0 +1,38 @@
+package Database;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
+
+import connector.DatabaseConnector;
+import model.Account;
+
+
+public class AccountDoa {
+	
+	private Connection connection = DatabaseConnector.getConnection();
+	
+	public void createAccount(int accountID, String firstname, String lastname, int funds) {
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			String account = String.format("INSERT INTO ACCOUNT VALUES ('%d','%s','%s','%d')", accountID,firstname,lastname,funds);
+			stmt.executeUpdate(account);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
+	
+	private void transferFunds(int accountFrom, int accountTo, int transferAmount) {
+		Statement stmt;
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

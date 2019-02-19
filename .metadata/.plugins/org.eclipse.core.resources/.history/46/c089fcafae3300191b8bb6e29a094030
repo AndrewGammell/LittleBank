@@ -1,0 +1,104 @@
+package Database;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.google.gson.JsonObject;
+
+import connector.DatabaseConnector;
+import model.Account;
+
+
+public class AccountDao {
+	
+	private Connection connection = DatabaseConnector.getConnection();
+	
+	public boolean createAccount(int accountID, String firstname, String lastname, int funds) {
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			String account = String.format("INSERT INTO ACCOUNTS VALUES ('%d','%s','%s','%d')", accountID,firstname,lastname,funds);
+			stmt.executeUpdate(account);
+			return true;
+		} catch (Exception e) {
+			e.getStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean transferFunds(int accountFrom, int accountTo, int transferAmount) {
+		Statement stmt;
+		ResultSet rs;
+		
+		if(getFunds(accountFrom) < transferAmount) {
+			return false;
+		} else {
+			updateFunds(accountFrom, getFunds(accountFrom) - transferAmount);		
+			updateFunds(accountTo, getFunds(accountTo) + transferAmount);
+		}
+		return false;
+	}
+	
+//	public JsonObject showBalance(int accountID) {
+//		
+//		
+//		
+//		return null;
+//	}
+//	
+	
+	
+	private boolean hasAdequateFunds(int accountFrom, int transferAmount) {
+		Statement stmt;
+		String checkFunds = "SELECT funds FROM ACCOUNTS WHERE accountID = " + accountFrom;
+		ResultSet rs;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(checkFunds);
+			rs.next();
+			if (rs.getInt(0) < transferAmount) {
+				return false;
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
+
+		return true;
+	}
+	
+	public int getFunds(int account) {
+		Statement stmt;
+		String checkFunds = "SELECT funds FROM ACCOUNTS WHERE accountID = " + account;
+		ResultSet rs;
+		int funds = -1;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(checkFunds);
+			rs.next();
+			funds = rs.getInt(1);
+			System.out.println("//////////////////////////////////"+funds);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} 
+
+		return funds;
+	}
+	
+	private void updateFunds(int account, int funds) {
+		Statement stmt;
+		String checkFunds = "UPDATE ACCOUNTS SET funds = '%d' WHERE accountID = %s";
+		try {
+			stmt = connection.createStatement();
+			stmt.executeUpdate(String.format(checkFunds, funds, account));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} 
+
+	}
+	
+}

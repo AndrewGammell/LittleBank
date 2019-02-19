@@ -1,0 +1,10 @@
+package connector;
+
+import java.sql.Connection;
+
+public interface IConnector {
+	
+	static Connection getConnection() {
+		return null;
+	}
+}
